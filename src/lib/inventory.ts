@@ -1,5 +1,7 @@
 export type Category = "card" | "coin" | "militaria";
+
 export type InventoryItem = UnsoldItem | SoldItem;
+
 export const inventory: InventoryItem[] = [
     {
         id: "c-001",
@@ -29,3 +31,10 @@ export const inventory: InventoryItem[] = [
         soldPrice: 110,
     },
 ];
+
+export function filterByCategory(
+    items: InventoryItem[],
+    category: Category
+): InventoryItem[] {
+    return items.filter((item) => item.category === category);
+}
