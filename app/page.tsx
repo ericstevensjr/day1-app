@@ -12,23 +12,28 @@ export default function Home() {
       : filterByCategory(inventory, selectedCategory);
 
   return (
-   <main style={{ padding: "4rem", fontFamily: "sans-serif"}}>
-    <h1>This is my own headline for day 1 to show that I know what the hell I'm doing in live development.</h1>
-    <p>Shipped July 7, 2026. Everything starts here.</p>
-    <div>
-      {(["all", "card", "coin", "militaria"] as const).map((cat) => (
-        <button key={cat} onClick={() => setSelectedCategory(cat)}>
-          {cat}
-        </button>
-      ))}
-    </div>
-    {visibleItems.map((item) => (
-      <ItemCard
-        key={item.id}
-        name={item.name}
-        category={item.category}
-        askingPrice={item.askingPrice}
-      />
+    <main 
+      className="max-w-3xl mx-auto px-4 py-8 space-y-6" 
+    >
+    <h1 className="text-2xl font-bold">Collectibles Inventory</h1>
+      <div>
+        {(["all", "card", "coin", "militaria"] as const).map((cat) => (
+          <button 
+            key={cat} 
+            onClick={() => setSelectedCategory(cat)}
+            className={selectedCategory === cat ? "px-3 py-1 rounded bg-blue-600 text-white" : "px-3 py-1 rounded border"}
+          >
+            {cat}
+          </button>
+        ))}
+      </div>
+      {visibleItems.map((item) => (
+        <ItemCard
+          key={item.id}
+          name={item.name}
+          category={item.category}
+          askingPrice={item.askingPrice}
+        />
       ))}
    </main>
   );
