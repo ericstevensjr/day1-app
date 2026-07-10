@@ -6,18 +6,30 @@ import { inventory, filterByCategory, type Category } from "@/src/lib/inventory"
 
 export default function Home() {
   const [selectedCategory, setSelectedCategory] = useState<Category | "all">("all");
-  const visibleItems = 
+  const [searchQuery, setSearchQuery] = useState("");
+  const categoryFiltered =
     selectedCategory === "all"
       ? inventory
       : filterByCategory(inventory, selectedCategory);
+  const visibleItems = categoryFiltered.filter((item => 
+      item.name.toLowerCase().includes(searchQuery.toLowerCase())
+  ));
 
   return (
     <main 
       className="max-w-3xl mx-auto px-4 py-8 space-y-6" 
     >
     <h1 className="text-2xl font-bold">Collectibles Inventory</h1>
+      <input
+        type="text"
+        placeholder="Search inventory..."
+        value={searchQuery}
+        onChange={(e) => setSearchQuery(e.target.value)}
+        className="w-full px-3 py-2 rounded border"
+      />
       <div>
         {(["all", "card", "coin", "militaria"] as const).map((cat) => (
+
           <button 
             key={cat} 
             onClick={() => setSelectedCategory(cat)}
