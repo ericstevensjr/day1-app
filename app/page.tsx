@@ -3,6 +3,7 @@
 import { useState } from "react";
 import ItemCard from "@/src/components/ItemCard";
 import { inventory, filterByCategory, type Category } from "@/src/lib/inventory";
+import CategoryFilter from "@/src/components/CategoryFilter";
 
 export default function Home() {
   const [selectedCategory, setSelectedCategory] = useState<Category | "all">("all");
@@ -27,18 +28,11 @@ export default function Home() {
         onChange={(e) => setSearchQuery(e.target.value)}
         className="w-full px-3 py-2 rounded border"
       />
-      <div>
-        {(["all", "card", "coin", "militaria"] as const).map((cat) => (
-
-          <button 
-            key={cat} 
-            onClick={() => setSelectedCategory(cat)}
-            className={selectedCategory === cat ? "px-3 py-1 rounded bg-blue-600 text-white" : "px-3 py-1 rounded border"}
-          >
-            {cat}
-          </button>
-        ))}
-      </div>
+      <CategoryFilter
+        categories={["all", "card", "coin", "militaria"]}
+        activeCategory={selectedCategory}
+        onCategoryChange={setSelectedCategory}
+      />
       {visibleItems.map((item) => (
         <ItemCard
           key={item.id}
