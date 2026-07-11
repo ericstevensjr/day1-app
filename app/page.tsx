@@ -4,6 +4,7 @@ import { useState } from "react";
 import ItemCard from "@/src/components/ItemCard";
 import { inventory, filterByCategory, type Category } from "@/src/lib/inventory";
 import CategoryFilter from "@/src/components/CategoryFilter";
+import SearchBox from "@/src/components/SearchBox";
 
 export default function Home() {
   const [selectedCategory, setSelectedCategory] = useState<Category | "all">("all");
@@ -21,13 +22,7 @@ export default function Home() {
       className="max-w-3xl mx-auto px-4 py-8 space-y-6" 
     >
     <h1 className="text-2xl font-bold">Collectibles Inventory</h1>
-      <input
-        type="text"
-        placeholder="Search inventory..."
-        value={searchQuery}
-        onChange={(e) => setSearchQuery(e.target.value)}
-        className="w-full px-3 py-2 rounded border"
-      />
+      <SearchBox value={searchQuery} onQueryChange={setSearchQuery} />
       <CategoryFilter
         categories={["all", "card", "coin", "militaria"]}
         activeCategory={selectedCategory}
